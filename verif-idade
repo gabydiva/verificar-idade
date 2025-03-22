@@ -1,0 +1,90 @@
+import React, { useState } from 'react';
+import { View, TextInput, Text, Button, StyleSheet } from 'react-native';
+
+const App = () => {
+    const [idade, setIdade] = useState('');
+    const [resultado, setResultado] = useState(''); //linhas 5 e 6: definindo as variaveis
+
+    const verificarIdade = () => { //linha 8: verificar as variaveis (q entram como string)
+        const idadeNumerica = parseInt(idade); //linha 9: transformar as strings em nmrs inteiros
+
+        if (isNaN(idadeNumerica)) { //linhas 11 e 12: pra dar erro se digitar letras ou outros simbolos :)
+            setResultado('Erro. Insira uma idade válida.');
+        } else if (idadeNumerica >= 18) { //linhas 13-16: pra definir o comportamento base do codigo ne
+            setResultado('Você é maior de idade.');
+        } else {
+            setResultado('Você é menor de idade.');
+        }
+    };
+
+    return (
+        <View style={styles.container}>
+            <Text style={styles.title}>Verificador de Idade</Text> 
+
+            {/* linhas 25-38: montagem dos text-inputs*/}
+            <TextInput
+                style={styles.input}
+                placeholder="Digite sua idade"
+                keyboardType="numeric"
+                value={idade}
+                onChangeText={setIdade}
+            />
+            <TextInput
+                style={styles.input}
+                placeholder="Resultado"
+                keyboardType="numeric"
+                value={resultado}
+                onChangeText={setResultado}
+                editable={false}
+            />
+
+            {/* button p verificar a idade */}
+            <Button title="Verificar" onPress={verificarIdade} color="#655578" />
+
+            <Text style={styles.title2}>Feito por: Gabriely Jó da Silva. ♡</Text>
+        </View>
+    );
+};
+
+export default App;
+
+//fiquei com preguiça de comentar no resto do codigo mas o resto sao os estilos, resolvi fazer simples pois; 
+//1- estou sem criatividade, 2- quis ser fiel a referência apresentada na aula.
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: '#ffdef5',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 16,
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: '#655578',
+        marginBottom: 15,
+    },
+
+        title2: {
+        fontSize: 15,
+        fontWeight: 'bold',
+        color: '#655578',
+        marginTop: 12,
+    },
+
+    input: {
+        height: 40,
+        width: '80%',
+        borderColor: '#655578',
+        borderWidth: 2,
+        borderRadius: 8,
+        marginBottom: 12,
+        paddingHorizontal: 8,
+    },
+    result: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: '#333',
+        marginTop: 20,
+    },
+});
